@@ -13,8 +13,11 @@ from redisolar.models import MeterReading
 class MeterReadingDaoRedis(MeterReadingDaoBase, RedisDaoBase):
     """MeterReadingDaoRedis persists MeterReading models to Redis."""
     def add(self, meter_reading: MeterReading, **kwargs) -> None:
+        # Sorted sets
         MetricDaoRedis(self.redis, self.key_schema).insert(meter_reading, **kwargs)
+
         CapacityReportDaoRedis(self.redis, self.key_schema).update(meter_reading, **kwargs)
+
         FeedDaoRedis(self.redis, self.key_schema).insert(meter_reading, **kwargs)
 
         # Uncomment for Challenge #3
