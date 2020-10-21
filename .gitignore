@@ -18,6 +18,7 @@ npm-debug.log
 .idea/
 
 .env
+.venv
 
 .DS_Store
 .run
